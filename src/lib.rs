@@ -35,10 +35,10 @@ impl<E: Pairing> PairingBatcher<E> {
         }
 
         let g1_points: Vec<E::G1> = if is_present {
-            let running_challenge = self.running_challenge * self.challenge;
+            self.running_challenge *= self.challenge;
             pairs
                 .iter()
-                .map(|&(g1, _)| g1 * running_challenge)
+                .map(|&(g1, _)| g1 * self.running_challenge)
                 .collect()
         } else {
             pairs.iter().map(|pair| pair.0.into()).collect()
